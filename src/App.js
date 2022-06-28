@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Cats from './Cats';
+import Cats from './Bestbooks';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -20,32 +20,45 @@ class App extends React.Component {
     }
   }
 
+  getCats = async () => {
+    console.log('I fired');
+    try {
+      let results = await axios.get(`${SERVER}/cats`);
+      console.log(results.data);
+      this.setState({
+        cats: results.data
+      })
+    } catch(error){
+      console.log('we have an error: ', error.response.data)
+    }
+  }
+
   componentDidMount() {
     this.fetchCats();
   }
 
-  async fetchCats(location = null) {
-    let apiUrl = `${SERVER}/cats`;
+  // async fetchCats(location = null) {
+  //   let apiUrl = `${SERVER}/cats`;
 
-    if (location) {
-      apiUrl += `?location=${location}`;
-    }
+  //   if (location) {
+  //     apiUrl += `?location=${location}`;
+  //   }
 
-    try {
-      const response = await axios.get(apiUrl);
-      this.setState({ cats: response.data });
+  //   try {
+  //     const response = await axios.get(apiUrl);
+  //     this.setState({ cats: response.data });
 
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
-  handleLocationSubmit = (event) => {
-    event.preventDefault();
-    const location = event.target.location.value;
-    console.log({ location });
-    this.fetchCats(location);
-  }
+  // handleLocationSubmit = (event) => {
+  //   event.preventDefault();
+  //   const location = event.target.location.value;
+  //   console.log({ location });
+  //   this.fetchCats(location);
+  // }
 
   render() {
     return (
