@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import axios from 'axios';
 import BestBooks from './BestBooks';
 import './App.css';
@@ -19,8 +20,7 @@ class App extends React.Component {
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
           </nav>
-          <Route
-            exact path="/" element={<BestBooks />}>
+          <Route exact path="/"> <BestBooks />
           </Route>
           <Route path="/about">
             <h1>About Page Here</h1>

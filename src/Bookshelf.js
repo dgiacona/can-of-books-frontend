@@ -4,12 +4,12 @@ import Carousel from 'react-bootstrap/Carousel';
 
 class Bookshelf extends React.Component {
   render() {
-    let bookCarousel = this.props.bookData.map((book, index) => {
+    let bookCarousel = this.props.bookOnShelf.map((book, index) => {
       return (
         <Carousel.Item key={index}>
           <img
             className="d-block"
-            src={require('./test.jpg')}
+            src={'./test.jpg'}
             alt='test'
           />
           <Carousel.Caption >
