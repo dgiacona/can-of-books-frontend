@@ -16,9 +16,9 @@ class BestBooks extends React.Component {
       let results = await axios.get(`${process.env.REACT_APP_SERVER}/books`);
       console.log(results.data);
       this.setState({
-        books: results.data,
-        description: results.description,
-        status: true
+        books: results.data
+        // description: results.description,
+        // status: true
       })
     } catch (error) {
       console.log('we have an error: ', error.response.data)
@@ -35,7 +35,7 @@ class BestBooks extends React.Component {
         <h2>Book Shelf</h2>
         {this.state.books.length ? (
           <Bookshelf
-            bookData={this.state.books}
+            bookOnShelf={this.state.books}
           />
         ) : (
           <h3>No books</h3>
