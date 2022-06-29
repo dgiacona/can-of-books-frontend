@@ -116,23 +116,11 @@ class BestBooks extends React.Component {
         {this.state.books.length ? (
           <Bookshelf
             bookOnShelf={this.state.books}
+            deleteBooks={this.deleteBooks}
           />
         ) : (
           <h3>No books</h3>
         )}
-
-        <Container className="mt-5">
-          <Form onSubmit={this.handleDelete}>
-            <Form.Group controlId="delete">
-              <Form.Label>would you like to delete this book?</Form.Label>
-          {/* // <Bookshelf books={this.state.books} onDelete={this.handleDelete} /> */}
-            </Form.Group>
-            <Button type="submit" variant="danger">Delete Book</Button>
-          </Form>
-        </Container>
-
-
-        {/* <Button type="button" variant="danger">Delete Book</Button> */} 
       </>
     )
   }
