@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Bookshelf from './Bookshelf';
+import { Button, Container, Form } from 'react-bootstrap';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -25,14 +26,77 @@ class BestBooks extends React.Component {
     }
   }
 
+  postBooks = async (book) => {
+    console.log('I fired');
+    let config = {
+      method: 'post',
+      url: `${process.env.REACT_APP_SERVER}/books`,
+      data: book  
+    }
+    try {
+      let results = await axios(config);
+      console.log(results.data);
+      this.setState({
+        books: [...this.state.books, results.data]
+        // description: results.description,
+        // status: true
+      })
+    } catch (error) {
+      console.log('we have an error: ', error.response.data)
+    }
+  }
+
+  deleteBooks = async (id) => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/books/${id}`;
+      await axios.delete(url);
+      // this.getBooks();
+      let updatedBooks = this.state.books.filter(book => book._id !== id);
+      this.setState({
+        books: updatedBooks
+      });
+    } catch(error) {
+      console.log('we have an error: ', error.response.data);
+    }
+  }
+
   componentDidMount() {
     this.getBooks();
+  }
+
+  handleBookSubmit = (e) => {
+    e.preventDefault();
+    let newBook = {
+      title: e.target.title.value,
+      description: e.target.description.value,
+      status: e.target.status.checked
+    }
+    console.log(newBook);
+    this.postBooks(newBook);
   }
 
   render() {
     return (
       <>
         <h2>Book Shelf</h2>
+
+        <Container className="mt-5">
+            <Form onSubmit={this.handleBookSubmit}>
+              <Form.Group controlId="title">
+                <Form.Label>Title</Form.Label>
+                <Form.Control type="text" />
+              </Form.Group>
+              <Form.Group controlId="description">
+                <Form.Label>Description</Form.Label>
+                <Form.Control type="text" />
+              </Form.Group>
+              <Form.Group controlId="status">
+                <Form.Check type="checkbox" label="completed" />
+              </Form.Group>
+              <Button type="submit">Add a Book</Button>
+            </Form>
+          </Container>
+
         {this.state.books.length ? (
           <Bookshelf
             bookOnShelf={this.state.books}
@@ -44,7 +108,5 @@ class BestBooks extends React.Component {
     )
   }
 }
-
-
 
 export default BestBooks;
