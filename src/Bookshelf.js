@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import Button from 'react-bootstrap/Button';
 
 class Bookshelf extends React.Component {
   render() {
@@ -15,7 +16,8 @@ class Bookshelf extends React.Component {
           <Carousel.Caption >
             <p>title: {book.title}</p>
             <p>Description: {book.description}</p>
-            <p>Status: {book.status}</p>
+            <p>Status: {book.status ? 'I have read this book' : 'I have not read this book'}</p>
+            <Button variant="danger" onClick={() => this.props.deleteBooks(book._id)}> Delete Book</Button>
 
           </Carousel.Caption>
         </Carousel.Item>
