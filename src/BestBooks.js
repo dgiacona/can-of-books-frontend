@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Bookshelf from './Bookshelf';
 import { Button, Container, Form } from 'react-bootstrap';
+// import Books from './Books';
 
 const SERVER = process.env.REACT_APP_SERVER;
 const API_URL = `${SERVER}/books`;
@@ -20,8 +21,7 @@ class BestBooks extends React.Component {
       console.log(results.data);
       this.setState({
         books: results.data
-        // description: results.description,
-        // status: true
+
       })
     } catch (error) {
       console.log('we have an error: ', error.response.data)
@@ -40,8 +40,7 @@ class BestBooks extends React.Component {
       console.log(results.data);
       this.setState({
         books: [...this.state.books, results.data]
-        // description: results.description,
-        // status: true
+
       })
     } catch (error) {
       console.log('we have an error: ', error.response.data)
@@ -56,6 +55,23 @@ class BestBooks extends React.Component {
       let updatedBooks = this.state.books.filter(book => book._id !== id);
       this.setState({
         books: updatedBooks
+      });
+    } catch (error) {
+      console.log('we have an error: ', error.response.data);
+    }
+  }
+
+  updateBooks = async (bookToUpdate) => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/books/${bookToUpdate._id}`;
+      let updatedBook = await axios.put(url, bookToUpdate);
+      let updatedBookArray = this.state.books.map(existingBook => {
+        return existingBook._id === bookToUpdate._id
+          ? updatedBook.data
+          : existingBook
+      });
+      this.setState({
+        books: updatedBookArray
       });
     } catch (error) {
       console.log('we have an error: ', error.response.data);
@@ -77,7 +93,6 @@ class BestBooks extends React.Component {
     this.postBooks(newBook);
   }
 
-
   handleDelete = async (bookToDelete) => {
     const url = `${API_URL}/${bookToDelete._id}`;
 
@@ -90,6 +105,18 @@ class BestBooks extends React.Component {
       console.error(error);
     }
   }
+
+  handleOpen = () => {
+    this.setState({
+      show: true
+    })
+  }
+
+  handleonHide = () => {
+    this.setState({
+      show: false
+    });
+  };
 
   render() {
     return (
@@ -117,10 +144,12 @@ class BestBooks extends React.Component {
           <Bookshelf
             bookOnShelf={this.state.books}
             deleteBooks={this.deleteBooks}
+            updateBooks={this.updateBooks}
           />
         ) : (
           <h3>No books</h3>
         )}
+
       </>
     )
   }
