@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Button, Form } from 'react-bootstrap';
+import {Button, Form, Modal } from 'react-bootstrap';
 
 class UpdateBookForm extends React.Component {
 
@@ -17,7 +17,11 @@ class UpdateBookForm extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Modal show={this.props.showUpdateForm} onHide={this.props.handleOnHide}>
+      <Modal.Header closeButton>
+        <Modal.Title>Modify Your Book</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="title">
             <Form.Label>Title</Form.Label>
@@ -32,9 +36,10 @@ class UpdateBookForm extends React.Component {
           </Form.Group>
           <Button type="submit">Update Book</Button>
         </Form>
-      </Container>
+      </Modal.Body>
+      </Modal>
     )
   }
 }
 
-export default UpdateBookForm
+export default UpdateBookForm;

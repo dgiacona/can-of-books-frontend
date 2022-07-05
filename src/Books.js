@@ -21,7 +21,6 @@ class Books extends Component {
     )
   }
 }
-
 class Book extends Component {
   constructor(props) {
     super(props);
@@ -29,9 +28,7 @@ class Book extends Component {
       showUpdateForm: false
     }
   }
-  // deletedHandler = () => {
-  //   this.props.deleteBooks(this.props.book.id);
-  // }
+
   render() {
     console.log(this.props.book);
     return (

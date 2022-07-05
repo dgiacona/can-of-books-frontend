@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Bookshelf from './Bookshelf';
 import { Button, Container, Form } from 'react-bootstrap';
-import Books from './Books';
+// import Books from './Books';
 
 const SERVER = process.env.REACT_APP_SERVER;
 const API_URL = `${SERVER}/books`;
@@ -21,7 +21,7 @@ class BestBooks extends React.Component {
       console.log(results.data);
       this.setState({
         books: results.data
-    
+
       })
     } catch (error) {
       console.log('we have an error: ', error.response.data)
@@ -40,7 +40,7 @@ class BestBooks extends React.Component {
       console.log(results.data);
       this.setState({
         books: [...this.state.books, results.data]
-   
+
       })
     } catch (error) {
       console.log('we have an error: ', error.response.data)
@@ -73,7 +73,7 @@ class BestBooks extends React.Component {
       this.setState({
         books: updatedBookArray
       });
-    } catch(error) {
+    } catch (error) {
       console.log('we have an error: ', error.response.data);
     }
   }
@@ -106,6 +106,18 @@ class BestBooks extends React.Component {
     }
   }
 
+  handleOpen = () => {
+    this.setState({
+      show: true
+    })
+  }
+
+  handleonHide = () => {
+    this.setState({
+      show: false
+    });
+  };
+
   render() {
     return (
       <>
@@ -137,6 +149,7 @@ class BestBooks extends React.Component {
         ) : (
           <h3>No books</h3>
         )}
+
       </>
     )
   }

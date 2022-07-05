@@ -1,10 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BestBooks from './BestBooks';
-
-import './App.css';
-
-
 import './App.css';
 import {
   BrowserRouter as Router,
